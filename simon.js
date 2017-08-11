@@ -1,18 +1,25 @@
 const buttons = document.querySelectorAll('.button');
 buttons.forEach(x => x.addEventListener('click', pushButton));
 
-const buttonsSequence = ['red','green','yellow','blue'];
+let colorsSequence = [];
+
+let playerSequence = [];
+
+const checkLength = () => colorsSequence.length == playerSequence.length;
 
 function pushButton() {
     const color = this.dataset.color;
+    playerSequence.push(color);
     playSound(color)();
+    if (!checkSequence()) error();
+    if (checkLength()) simonTime();
 }
 
 function playSequence(sequence) {
     sequence.forEach(
         function (color, index) {
             let play = playSound(color);
-            setTimeout(play, 1000 * index);
+            setTimeout(play, 1000 * (index + 1));
         });
 }
 
@@ -32,10 +39,20 @@ function pickARandomColor() {
         case 3 : return 'yellow';
     }
 }
+function simonTime() {
+    playerSequence = [];
+    const newColor = pickARandomColor();
+    colorsSequence.push(newColor);
+    playSequence(colorsSequence);
+}
 
-playSequence(buttonsSequence);
-/*
-const audio = document.querySelector('audio');
+function checkSequence(){
+    return playerSequence.every((x, idx) => x === colorsSequence[idx]);
+}
 
-audio.currentTime = 0;
-audio.play();*/
+function error() {
+    console.log('error');
+    playerSequence = [];
+}
+
+simonTime();
