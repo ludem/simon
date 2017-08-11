@@ -8,18 +8,18 @@
     display: flex;
 }
 
-.blue {
+.button[data-color="blue"] {
     background: blue;
 }
 
-.red {
+.button[data-color="red"] {
     background: red;
 }
 
-.yellow {
+.button[data-color="yellow"] {
     background: yellow;
 }
 
-.green {
+.button[data-color="green"] {
     background: green;
 }
