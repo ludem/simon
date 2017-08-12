@@ -1,33 +1,58 @@
 const buttons = document.querySelectorAll('.button');
+const display = document.querySelector('#display');
+const strictButton = document.querySelector('#strict');
+
+let strictMode = false;
+
 buttons.forEach(x => x.addEventListener('click', pushButton));
 buttons.forEach(x => x.addEventListener('transitionend', putOff));
-let colorsSequence = [];
+strictButton.addEventListener('click', toggleStrictMode);
 
+let colorsSequence = [];
 let playerSequence = [];
+let state ="listening";
+let buttonsPressedCounter = 0;
+
+const setPlayState = () => state = 'play';
+const setListeningState = () => state = 'listening';
+
+const isInListeningState = () => state === 'listening';
 
 const checkLength = () => colorsSequence.length == playerSequence.length;
 
-function putOff (e) {
-    console.log(e);
+function putOff () {
     this.classList.remove('active');
 }
+
 function pushButton() {
+    //if a button is pressed during the automatic playing do nothing
+    if (isInListeningState()) return;
+
     const color = this.dataset.color;
     playerSequence.push(color);
     playSound(color)();
-    if (!checkSequence()) error();
+
+    //check if the player sequence is right
+    if (!checkSequence()) {
+        error();
+        return;
+    }
+
+    //if the sequence is complete start the automatic sequence
     if (checkLength()) {
-        console.log('OK');
-        simonTime();
+        setListeningState();
+        setTimeout(simonTime, 1500);
+        return;
     }
 }
 
-const playSequence = sequence  => {
-    sequence.forEach((color, index) => setTimeout(playSound(color), 1000 * (index + 2)));
+function playSequence() {
+    display.textContent = colorsSequence.length;
+    setTimeout(setPlayState, 1000 * (colorsSequence.length + 1));
+    colorsSequence.forEach((color, index) => setTimeout(playSound(color), 1000 * (index + 1)));
 }
      
 function playSound(color) {  
-    console.log(color);
     const button = document.querySelector(`.button[data-color="${color}"]`)
     const audio = document.querySelector(`audio[data-color="${color}"]`);
     audio.currentTime = 0;
@@ -47,11 +72,12 @@ function pickARandomColor() {
         case 3 : return 'yellow';
     }
 }
+
 function simonTime() {
     playerSequence = [];
     const newColor = pickARandomColor();
     colorsSequence.push(newColor);
-    playSequence(colorsSequence);
+    playSequence();
 }
 
 function checkSequence(){
@@ -59,9 +85,23 @@ function checkSequence(){
 }
 
 function error() {
+    setListeningState();
     console.error('error');
     playerSequence = [];
-    playSequence(colorsSequence);
+    display.textContent = 'ERR';
+    if (strictMode) {
+        resetGame();
+        setTimeout(simonTime, 2000);
+        return;
+    } else setTimeout(playSequence, 2000);
+}
+
+function toggleStrictMode() {
+    strictMode = !strictMode;
+}
+
+function resetGame() {
+    colorsSequence = [];
 }
 
 simonTime();
