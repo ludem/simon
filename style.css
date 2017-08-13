@@ -1,32 +1,66 @@
-.button {
-    width: 8rem;
-    height: 5rem;
-    margin-right:0.5rem;
-}
-
 .simon {
-    display: flex;
+    position: relative;
+    width: 17rem;
+    height: 17rem;
+    border-radius: 50%;
+    overflow: hidden;
+
+    border: 0.5rem solid black;
+    background: black;
 }
 .button {
     opacity: 0.5;
     transition: opacity 0.5s ease-in-out;
+    position: absolute;
+    width: 8rem;
+    height: 8rem;
+    margin: 0.5 rem;
 }
+
+.centralArea {
+    height: 7rem;
+    width: 7rem;
+    border-radius: 50%;
+    background: black;
+    z-index: 2;
+}
+
 .button[data-color="blue"] {
     background: blue;
+    top: 0;
+    right: 0;
 }
 
 .button[data-color="red"] {
     background: red;
+    top: 0;
+    left: 0;
 }
 
 .button[data-color="yellow"] {
     background: yellow;
+    bottom: 0;
+    right: 0;
 }
 
 .button[data-color="green"] {
     background: green;
+    bottom: 0;
+    left: 0;
 }
 
 .button.active {
     opacity:1;
+}
+
+#display{
+    color: yellow;
+    background: red;
+    opacity: 0.7;
+}
+
+.flex-center {
+   display: flex;
+    justify-content: center;
+    align-items: center;
 }
