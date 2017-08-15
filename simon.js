@@ -12,8 +12,15 @@ let colorsSequence = [];
 let playerSequence = [];
 let state ="listening";
 let buttonsPressedCounter = 0;
+let errorTimeout;
 
-const setPlayState = () => state = 'play';
+//after 3 seconds without pressing any button, error occurs
+const startErrorTimeout = () => errorTimeout = setTimeout(error, 3000);
+
+const setPlayState = () => {
+    state = 'play';
+    startErrorTimeout();
+}
 const setListeningState = () => state = 'listening';
 
 const isInListeningState = () => state === 'listening';
@@ -25,6 +32,9 @@ function putOff () {
 }
 
 function pushButton() {
+    //clear the error timeout
+    clearInterval(errorTimeout);
+
     //if a button is pressed during the automatic playing do nothing
     if (isInListeningState()) return;
 
@@ -44,6 +54,8 @@ function pushButton() {
         setTimeout(simonTime, 1500);
         return;
     }
+
+    startErrorTimeout();
 }
 
 function playSequence() {
