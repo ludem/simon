@@ -8,6 +8,14 @@
     border: 0.5rem solid black;
     background: black;
 }
+
+.title {
+    font-family: 'Dhurjati', sans-serif;
+    color: white;
+    margin:0;
+    font-size: 2rem;
+}
+
 .button {
     opacity: 0.5;
     transition: opacity 0.5s ease-in-out;
@@ -23,6 +31,7 @@
     border-radius: 50%;
     background: black;
     z-index: 2;
+    flex-direction: column;
 }
 
 .button[data-color="blue"] {
