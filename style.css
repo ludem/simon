@@ -1,75 +1,77 @@
 .simon {
-    position: relative;
-    width: 17rem;
-    height: 17rem;
-    border-radius: 50%;
-    overflow: hidden;
+  position: relative;
+  width: 17rem;
+  height: 17rem;
+  border-radius: 50%;
+  overflow: hidden;
 
-    border: 0.5rem solid black;
-    background: black;
+  border: 0.5rem solid black;
+  background: black;
 }
 
 .title {
-    font-family: 'Dhurjati', sans-serif;
-    color: white;
-    margin:0;
-    font-size: 2rem;
+  font-family: 'Dhurjati', sans-serif;
+  color: white;
+  margin: 0;
+  font-size: 3rem;
 }
 
 .button {
-    opacity: 0.5;
-    transition: opacity 0.5s ease-in-out;
-    position: absolute;
-    width: 8rem;
-    height: 8rem;
-    margin: 0.5 rem;
+  opacity: 0.5;
+  transition: opacity 0.5s ease-in-out;
+  position: absolute;
+  width: 8rem;
+  height: 8rem;
+  margin: 0.5 rem;
+    box-shadow: inset -2px -1px 24px -1px rgba(255, 255, 255, 1);
+
 }
 
 .centralArea {
-    height: 7rem;
-    width: 7rem;
-    border-radius: 50%;
-    background: black;
-    z-index: 2;
-    flex-direction: column;
-}
-
-.button[data-color="blue"] {
-    background: blue;
-    top: 0;
-    right: 0;
+  height: 8rem;
+  width: 8rem;
+  border-radius: 50%;
+  background: black;
+  z-index: 2;
+  flex-direction: column;
 }
 
 .button[data-color="red"] {
-    background: red;
-    top: 0;
-    left: 0;
-}
-
-.button[data-color="yellow"] {
-    background: yellow;
-    bottom: 0;
-    right: 0;
+  background: red;
+  top: 0;
+  right: 0;
 }
 
 .button[data-color="green"] {
-    background: green;
-    bottom: 0;
-    left: 0;
+  background: green;
+  top: 0;
+  left: 0;
+}
+
+.button[data-color="yellow"] {
+  background: yellow;
+  bottom: 0;
+  left: 0;
+}
+
+.button[data-color="blue"] {
+  background: mediumblue;
+  bottom: 0;
+  right: 0;
 }
 
 .button.active {
-    opacity:1;
+  opacity: 1;
 }
 
-#display{
-    color: yellow;
-    background: red;
-    opacity: 0.7;
+#display {
+  color: yellow;
+  background: red;
+  opacity: 0.7;
 }
 
 .flex-center {
-   display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

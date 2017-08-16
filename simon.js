@@ -100,7 +100,7 @@ function error() {
     setListeningState();
     console.error('error');
     playerSequence = [];
-    display.textContent = 'ERR';
+    display.textContent = '!!';
     if (strictMode) {
         resetGame();
         setTimeout(simonTime, 2000);
