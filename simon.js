@@ -3,12 +3,11 @@ const display = document.querySelector("#display");
 const strictButton = document.querySelector("#strict");
 const startButton = document.querySelector("#start");
 
-let strictMode = false;
+startButton.addEventListener("click", handlePowerButton);
 
-buttons.forEach(x => x.addEventListener("click", pushButton));
-buttons.forEach(x => x.addEventListener("transitionend", putOff));
-strictButton.addEventListener("click", toggleStrictMode);
-startButton.addEventListener("click", power);
+
+let strictMode = false;
+let power = false;
 
 let colorsSequence = [];
 let playerSequence = [];
@@ -127,14 +126,32 @@ function resetGame() {
   colorsSequence = [];
 }
 
-simonTime();
-
-function power() {
+function powerOff() {
+  //clear all timeouts to stop any ongoing sequence
   timeouts.forEach(x => clearTimeout(x));
   clearTimeout(errorTimeout);
+
+  //disable any button
   buttons.forEach(x => {
     x.removeEventListener("click", pushButton);
     x.classList.remove("active");
   });
+  //lid off the display
   display.textContent = "";
+}
+
+function powerOn() {
+  buttons.forEach(x => x.addEventListener("click", pushButton));
+  buttons.forEach(x => x.addEventListener("transitionend", putOff));
+  strictButton.addEventListener("click", toggleStrictMode);
+
+  strictMode = false;
+  resetGame();
+  simonTime();
+}
+
+function handlePowerButton() {
+  power = !power;
+  console.log(power);
+  power ? powerOn() : powerOff();
 }
