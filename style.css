@@ -31,7 +31,7 @@ body {
   transition: opacity 0.3s ease-in-out;
   position: absolute;
   width: 6rem;
-  height:6rem;
+  height: 6rem;
   margin: 0.5 rem;
   /*  box-shadow: inset -2px -1px 24px -1px rgba(255, 255, 255, 1);
 */
@@ -75,11 +75,15 @@ body {
 }
 
 #display {
-  color: yellow;
-  background: red;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.8rem;
+  background: orangered;
   opacity: 0.7;
   width: 1rem;
   height: 1rem;
+  box-shadow: 0px 3px 1px 1px darkred inset;
+  text-align: right;
+  margin:0;
 }
 
 .flex-center {

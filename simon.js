@@ -5,7 +5,6 @@ const startButton = document.querySelector("#start");
 
 startButton.addEventListener("click", handlePowerButton);
 
-
 let strictMode = false;
 let power = false;
 
@@ -14,35 +13,28 @@ let playerSequence = [];
 
 let timeouts = [];
 
-let state = "listening";
-let buttonsPressedCounter = 0;
+//let state = "listening";
 let errorTimeout;
 
 //after 3 seconds without pressing any button, error occurs
 const startErrorTimeout = () => (errorTimeout = setTimeout(error, 3000));
 
 const setPlayState = () => {
-  state = "play";
+  enableColorsButton();
   startErrorTimeout();
 };
-const setListeningState = () => (state = "listening");
+/*const setListeningState = () => (state = "listening");
 
-const isInListeningState = () => state === "listening";
+const isInListeningState = () => state === "listening";*/
 
 const checkLength = () => colorsSequence.length == playerSequence.length;
-
-function putOff() {
-  this.classList.remove("active");
-}
 
 function pushButton() {
   //clear the error timeout
   clearInterval(errorTimeout);
 
-  //if a button is pressed during the automatic playing do nothing
-  if (isInListeningState()) return;
-
   const color = this.dataset.color;
+  //add the pushed color in the player sequence
   playerSequence.push(color);
   playSound(color)();
 
@@ -54,18 +46,21 @@ function pushButton() {
 
   //if the sequence is complete start the automatic sequence
   if (checkLength()) {
-    setListeningState();
-    setTimeout(simonTime, 1500);
+    //setListeningState();
+    disableColorsButtons();
+    timeouts.push(setTimeout(simonTime, 1500));
     return;
   }
 
   startErrorTimeout();
 }
 
-function playSequence() {
-  display.textContent = colorsSequence.length;
-  timeouts.push(setTimeout(setPlayState, 1000 * (colorsSequence.length + 1)));
-  colorsSequence.forEach((color, index) =>
+/* if the function is called without parameter,
+the current color sequence is played */
+function playSequence(sequence = colorsSequence) {
+  display.textContent = sequence.length;
+  timeouts.push(setTimeout(setPlayState, 1000 * (sequence.length + 1)));
+  sequence.forEach((color, index) =>
     timeouts.push(setTimeout(playSound(color), 1000 * (index + 1)))
   );
 }
@@ -107,8 +102,7 @@ function checkSequence() {
 }
 
 function error() {
-  setListeningState();
-  console.error("error");
+  disableColorsButtons();
   playerSequence = [];
   display.textContent = "!!";
   if (strictMode) {
@@ -132,17 +126,16 @@ function powerOff() {
   clearTimeout(errorTimeout);
 
   //disable any button
-  buttons.forEach(x => {
-    x.removeEventListener("click", pushButton);
-    x.classList.remove("active");
-  });
+  disableColorsButtons();
+  turnOutColorsButtons();
+
   //lid off the display
   display.textContent = "";
 }
 
 function powerOn() {
-  buttons.forEach(x => x.addEventListener("click", pushButton));
-  buttons.forEach(x => x.addEventListener("transitionend", putOff));
+  enableColorsButton
+  buttons.forEach(x => x.addEventListener("transitionend", turnOut));
   strictButton.addEventListener("click", toggleStrictMode);
 
   strictMode = false;
@@ -152,6 +145,24 @@ function powerOn() {
 
 function handlePowerButton() {
   power = !power;
-  console.log(power);
   power ? powerOn() : powerOff();
+}
+
+function enableColorsButton() {
+  buttons.forEach(x => {
+    x.addEventListener("click", pushButton);
+  });
+}
+
+function disableColorsButtons() {
+  //disable any button
+  buttons.forEach(x => x.removeEventListener("click", pushButton));
+}
+
+function turnOut(button = this) {
+  this.classList.remove("active");
+}
+
+function turnOutColorsButtons() {
+  buttons.forEach(x => clearTimeout(x));
 }
