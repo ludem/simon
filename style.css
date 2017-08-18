@@ -75,13 +75,15 @@ body {
 }
 
 #display {
-  font-family: 'Orbitron', monospace;
-  font-size: 0.8rem;
-  background: orangered;
-  opacity: 0.7;
+  font-family: 'VT323', monospace;
+  font-size: 1rem;
+  background: #32050C;
+  color: #DC0D29;
   width: 1rem;
   height: 1rem;
-  box-shadow: 0px 3px 1px 1px darkred inset;
+  /*box-shadow: 0px 1px 1px 1px darkred inset;*/
+  border-radius: 5%;
+  border: 1px solid 222;
   text-align: right;
   margin:0;
 }
