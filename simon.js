@@ -1,9 +1,9 @@
 const buttons = document.querySelectorAll(".button");
 const display = document.querySelector("#display");
 const strictButton = document.querySelector("#strict");
-const startButton = document.querySelector("#start");
+const powerButton = document.querySelector("#power");
 
-startButton.addEventListener("click", handlePowerButton);
+powerButton.addEventListener("click", handlePowerButton);
 
 let strictMode = false;
 let power = false;
@@ -130,11 +130,13 @@ function powerOff() {
   turnOutColorsButtons();
 
   //lid off the display
-  display.textContent = "";
+  turnOutDisplay();
 }
 
 function powerOn() {
-  enableColorsButton
+  enableColorsButton();
+  turnOnDisplay();
+
   buttons.forEach(x => x.addEventListener("transitionend", turnOut));
   strictButton.addEventListener("click", toggleStrictMode);
 
@@ -165,4 +167,13 @@ function turnOut(button = this) {
 
 function turnOutColorsButtons() {
   buttons.forEach(x => clearTimeout(x));
+}
+
+function turnOnDisplay(){
+  display.classList.add('on');
+}
+
+function turnOutDisplay(){
+  display.classList.remove('on');
+  display.textContent = "--";
 }

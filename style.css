@@ -17,6 +17,7 @@ body {
 
   border: 0.5rem solid black;
   background: black;
+
 }
 
 .title {
@@ -79,6 +80,7 @@ body {
   font-size: 1rem;
   background: #32050C;
   color: #DC0D29;
+  color: rgba(220, 13, 41, 0.2);
   width: 1rem;
   height: 1rem;
   /*box-shadow: 0px 1px 1px 1px darkred inset;*/
@@ -90,6 +92,28 @@ body {
 
 .flex-center {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#display.on{
+  color: #DC0D29;
+}
+
+.controllers button {
+  border-radius: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.controllers label {
+  color: whitesmoke;
+  font-size:0.5rem;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
