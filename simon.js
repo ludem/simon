@@ -1,9 +1,21 @@
 const buttons = document.querySelectorAll(".button");
 const display = document.querySelector("#display");
 const strictButton = document.querySelector("#strict");
+const strictLed = document.querySelector(".led");
 const powerButton = document.querySelector("#power");
-
+const intervalTime = 1000;
+const startSequence = [
+  "red",
+  "blue",
+  "yellow",
+  "green",
+  "red",
+  "blue",
+  "yellow",
+  "green"
+];
 powerButton.addEventListener("click", handlePowerButton);
+buttons.forEach(x => x.addEventListener("transitionend", turnOut));
 
 let strictMode = false;
 let power = false;
@@ -57,11 +69,9 @@ function pushButton() {
 
 /* if the function is called without parameter,
 the current color sequence is played */
-function playSequence(sequence = colorsSequence) {
-  display.textContent = sequence.length;
-  timeouts.push(setTimeout(setPlayState, 1000 * (sequence.length + 1)));
+function playSequence(sequence = colorsSequence, timing = intervalTime) {
   sequence.forEach((color, index) =>
-    timeouts.push(setTimeout(playSound(color), 1000 * (index + 1)))
+    timeouts.push(setTimeout(playSound(color), timing * (index + 1)))
   );
 }
 
@@ -95,6 +105,8 @@ function simonTime() {
   const newColor = pickARandomColor();
   colorsSequence.push(newColor);
   playSequence();
+  display.textContent = colorsSequence.length;
+  timeouts.push(setTimeout(setPlayState, 1000 * (colorsSequence.length + 1)));
 }
 
 function checkSequence() {
@@ -114,6 +126,7 @@ function error() {
 
 function toggleStrictMode() {
   strictMode = !strictMode;
+  strictMode ? turnOnStrictLed() : turnOutStrictLed();
 }
 
 function resetGame() {
@@ -127,22 +140,31 @@ function powerOff() {
 
   //disable any button
   disableColorsButtons();
+  disableStrictButton();
+  
   turnOutColorsButtons();
 
-  //lid off the display
+  //turn out the display
   turnOutDisplay();
+
+  //turn out the strict led
+  turnOutStrictLed();
 }
 
 function powerOn() {
+  playSequence(startSequence, 200);
+  display.textContent='GO';
+  
+  enableStrictButton();
   enableColorsButton();
   turnOnDisplay();
 
-  buttons.forEach(x => x.addEventListener("transitionend", turnOut));
   strictButton.addEventListener("click", toggleStrictMode);
 
   strictMode = false;
   resetGame();
-  simonTime();
+
+  timeouts.push(setTimeout(simonTime, 4000));
 }
 
 function handlePowerButton() {
@@ -161,6 +183,14 @@ function disableColorsButtons() {
   buttons.forEach(x => x.removeEventListener("click", pushButton));
 }
 
+function enableStrictButton() {
+  strictButton.addEventListener('click', toggleStrictMode);
+}
+
+function disableStrictButton() {
+    strictButton.removeEventListener('click', toggleStrictMode);
+}
+
 function turnOut(button = this) {
   this.classList.remove("active");
 }
@@ -169,11 +199,19 @@ function turnOutColorsButtons() {
   buttons.forEach(x => clearTimeout(x));
 }
 
-function turnOnDisplay(){
-  display.classList.add('on');
+function turnOnDisplay() {
+  display.classList.add("on");
 }
 
-function turnOutDisplay(){
-  display.classList.remove('on');
+function turnOutDisplay() {
+  display.classList.remove("on");
   display.textContent = "--";
+}
+
+function turnOnStrictLed() {
+  strictLed.classList.add("on");
+}
+
+function turnOutStrictLed() {
+  strictLed.classList.remove("on");
 }
