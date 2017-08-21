@@ -69,7 +69,8 @@ function pushButton() {
 
 /* if the function is called without parameter,
 the current color sequence is played */
-function playSequence(sequence = colorsSequence, timing = intervalTime) {
+function playSequence(sequence = colorsSequence, timing = intervalTime, text = colorsSequence.length) {
+  display.textContent = text;
   sequence.forEach((color, index) =>
     timeouts.push(setTimeout(playSound(color), timing * (index + 1)))
   );
@@ -119,9 +120,16 @@ function error() {
   display.textContent = "!!";
   if (strictMode) {
     resetGame();
-    timeouts.push(setTimeout(simonTime, 2000));
+    timeouts.push(setTimeout(simonTime, 3000));
     return;
-  } else timeouts.push(setTimeout(playSequence, 2000));
+  } else {
+    timeouts.push(setTimeout(repeatSequence, 2000))
+  };
+}
+
+function repeatSequence() {
+  playSequence();
+  timeouts.push(setTimeout(setPlayState, 1000 * (colorsSequence.length + 1)));
 }
 
 function toggleStrictMode() {
@@ -141,7 +149,7 @@ function powerOff() {
   //disable any button
   disableColorsButtons();
   disableStrictButton();
-  
+
   turnOutColorsButtons();
 
   //turn out the display
@@ -152,9 +160,7 @@ function powerOff() {
 }
 
 function powerOn() {
-  playSequence(startSequence, 200);
-  display.textContent='GO';
-  
+  //playSequence(startSequence, 200, 'GO');  
   enableStrictButton();
   enableColorsButton();
   turnOnDisplay();
@@ -164,7 +170,7 @@ function powerOn() {
   strictMode = false;
   resetGame();
 
-  timeouts.push(setTimeout(simonTime, 4000));
+  timeouts.push(setTimeout(simonTime, 1000));
 }
 
 function handlePowerButton() {
