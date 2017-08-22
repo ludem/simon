@@ -4,16 +4,6 @@ const strictButton = document.querySelector("#strict");
 const strictLed = document.querySelector(".led");
 const powerButton = document.querySelector("#power");
 const intervalTime = 1000;
-const startSequence = [
-  "red",
-  "blue",
-  "yellow",
-  "green",
-  "red",
-  "blue",
-  "yellow",
-  "green"
-];
 powerButton.addEventListener("click", handlePowerButton);
 buttons.forEach(x => x.addEventListener("transitionend", turnOut));
 
