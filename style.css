@@ -35,48 +35,51 @@ body {
   font-family: 'Squada One', cursive;
   color: whitesmoke;
   margin: 0;
-  font-size: 2.2rem;
+  font-size: 1.5rem;
 }
 
 .button {
   opacity: 0.6;
   transition: opacity 0.4s ease-in-out;
-  position: absolute;
   width: 6rem;
   height: 6rem;
-  margin: 0.5 rem;
-  /*  box-shadow: inset -2px -1px 24px -1px rgba(255, 255, 255, 1);
-*/
+  margin: 0 rem;
+  position: absolute;
 }
 
+
 .centralArea {
-  height: 8rem;
-  width: 8rem;
+  height: 50%;
+  width: 50%;
   border-radius: 50%;
   background: black;
-  z-index: 2;
+  z-index:0;
   flex-direction: column;
 }
 
 .button[data-color="red"] {
+  border-top-right-radius: 50%;
   background: red;
   top: 0;
   right: 0;
 }
 
 .button[data-color="green"] {
+  border-top-left-radius: 50%;
   background: green;
-  top: 0;
-  left: 0;
+ top: 0;
+  left:0;
 }
 
 .button[data-color="yellow"] {
+  border-bottom-left-radius: 50%;
   background: yellow;
   bottom: 0;
   left: 0;
 }
 
 .button[data-color="blue"] {
+  border-bottom-right-radius: 50%;
   background: mediumblue;
   bottom: 0;
   right: 0;
@@ -99,6 +102,7 @@ body {
   border: 1px solid 222;
   text-align: right;
   margin: 0;
+  border: 0.05rem solid gray;
 }
 
 .flex-center {
