@@ -18,8 +18,8 @@ let timeouts = [];
 //let state = "listening";
 let errorTimeout;
 
-//after 3 seconds without pressing any button, error occurs
-const startErrorTimeout = () => (errorTimeout = setTimeout(error, 3000));
+//after 5 seconds without pressing any button, error occurs
+const startErrorTimeout = () => (errorTimeout = setTimeout(error, 5000));
 
 const setPlayState = () => {
   enableColorsButton();
