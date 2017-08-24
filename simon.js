@@ -4,6 +4,9 @@ const strictButton = document.querySelector("#strict");
 const strictLed = document.querySelector(".led");
 const powerButton = document.querySelector("#power");
 const intervalTime = 1000;
+
+
+
 powerButton.addEventListener("click", handlePowerButton);
 buttons.forEach(x => x.addEventListener("transitionend", turnOut));
 
@@ -25,9 +28,8 @@ const setPlayState = () => {
   enableColorsButton();
   startErrorTimeout();
 };
-/*const setListeningState = () => (state = "listening");
 
-const isInListeningState = () => state === "listening";*/
+const checkVictory = () => colorsSequence.length === 20;
 
 const checkLength = () => colorsSequence.length == playerSequence.length;
 
@@ -50,6 +52,10 @@ function pushButton() {
   if (checkLength()) {
     //setListeningState();
     disableColorsButtons();
+    if (checkVictory()) {
+      handleVictory();
+      return;
+    }
     timeouts.push(setTimeout(simonTime, 1500));
     return;
   }
@@ -210,4 +216,10 @@ function turnOnStrictLed() {
 
 function turnOutStrictLed() {
   strictLed.classList.remove("on");
+}
+
+function handleVictory() {
+  display.textContent = "W!";
+  resetGame();
+  timeouts.push(setTimeout(simonTime, 3000));
 }
