@@ -158,7 +158,7 @@ function powerOff() {
 function powerOn() {
   //playSequence(startSequence, 200, 'GO');  
   enableStrictButton();
-  enableColorsButton();
+  //enableColorsButton();
   turnOnDisplay();
 
   strictButton.addEventListener("click", toggleStrictMode);
