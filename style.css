@@ -56,28 +56,28 @@ body {
 }
 
 .button[data-color="red"] {
-  border-top-right-radius: 50%;
+  border-top-right-radius: 100%;
   background: red;
   top: 0;
   right: 0;
 }
 
 .button[data-color="green"] {
-  border-top-left-radius: 50%;
+  border-top-left-radius: 100%;
   background: green;
   top: 0;
   left: 0;
 }
 
 .button[data-color="yellow"] {
-  border-bottom-left-radius: 50%;
+  border-bottom-left-radius: 100%;
   background: yellow;
   bottom: 0;
   left: 0;
 }
 
 .button[data-color="blue"] {
-  border-bottom-right-radius: 50%;
+  border-bottom-right-radius: 100%;
   background: mediumblue;
   bottom: 0;
   right: 0;
