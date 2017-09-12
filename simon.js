@@ -1,4 +1,4 @@
-const buttons = document.querySelectorAll(".button");
+const buttons = Array.from(document.querySelectorAll(".button"));
 const display = document.querySelector("#display");
 const strictButton = document.querySelector("#strict");
 const strictLed = document.querySelector(".led");
@@ -10,16 +10,16 @@ const intervalTime = 1000;
 powerButton.addEventListener("click", handlePowerButton);
 buttons.forEach(x => x.addEventListener("transitionend", turnOut));
 
-let strictMode = false;
-let power = false;
+var strictMode = false;
+var power = false;
 
-let colorsSequence = [];
-let playerSequence = [];
+var colorsSequence = [];
+var playerSequence = [];
 
-let timeouts = [];
+var timeouts = [];
 
 //let state = "listening";
-let errorTimeout;
+var errorTimeout;
 
 //after 5 seconds without pressing any button, error occurs
 const startErrorTimeout = () => (errorTimeout = setTimeout(error, 5000));
